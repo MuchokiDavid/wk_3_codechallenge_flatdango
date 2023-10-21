@@ -1,28 +1,34 @@
 @import url("bootstrap.css");
-
+.body{
+    background-color: aliceblue;
+}
 .container {
     display: flex; /* Make the container a flex container */
 }
 .mDetails{
-    background-color: rgb(240, 240, 240);
     width: 100%;
+    background-color: #fff;
 }
 .head,.foot{
-    background-color: rgb(157, 157, 240);
+    background-color: rgb(77, 77, 240);
     color: #fff;
     padding: 20px;
 }
 .listAtt{
     list-style: none;
+    color: white;
 }
-.listDiv{
+#movieMenu{
+    padding-top: 10px;
+}
+.film_items{
     height: 35px;
     width: 250px;
     border: 1px solid #747474;
-    background-color: rgb(190, 190, 190);
+    background-color: rgb(110, 110, 223);
     color: #333; /* Default link color */
     text-decoration: none;
 }
-.listDiv:active {
+.film_items:active {
     color: #FF0000;
 }
