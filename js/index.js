@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function(){
         })
         .catch(error=>error)
      }
+     getDefaultMovie()
 
     // Fetch data and put it on a list on the side nav
     function getMovieList(){
@@ -160,5 +161,5 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     getMovieList()
-    getDefaultMovie()
+
 })
