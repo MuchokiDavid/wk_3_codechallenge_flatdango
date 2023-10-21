@@ -3,7 +3,7 @@
     background-color: aliceblue;
 }
 .container {
-    display: flex; /* Make the container a flex container */
+    display: flex; /*Make the container a flex container*/
 }
 .mDetails{
     width: 100%;
@@ -19,7 +19,7 @@
     color: white;
 }
 #movieMenu{
-    padding-top: 10px;
+    padding-top: 5px;
 }
 .film_items{
     height: 35px;

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
     //Movies card
     let cardDiv;
 
-    // Default movie function
+    // Show default movie on page load
     function getDefaultMovie(){
         const moiveDetails= document.querySelector("#movieDetails")
         fetch("http://localhost:3000/films")
@@ -29,16 +29,36 @@ document.addEventListener("DOMContentLoaded", function(){
             btnDefault.className= 'btn btn-primary'
             let ticketAvailable = data[0].capacity - data[0].tickets_sold;
             const cardBody= document.querySelector("#defaultCard")
-            if(ticketAvailable ===0 ){
-                btnDefault.textContent = "Sold Out"
-            }
-            else{
+            //Update button for the first id
+            if(ticketAvailable >0)
+            {
                 btnDefault.textContent = "Buy Ticket"
+                btnDefault.addEventListener("click", ()=> {
+                fetch (`http://localhost:3000/films/${data[0].id}`, {
+                    method: 'PATCH',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify({tickets_sold: data[0].tickets_sold+1})
+                })
+                .then(res=> res.json())
+                .then((updatedData) => {
+                    // Update the displayed available tickets count
+                    const ticketsAvailableElement = document.getElementById("ticketsAvailable");
+                    ticketsAvailableElement.textContent = `Available Tickets: ${data.capacity - updatedData.tickets_sold}`;
+                    })
+                .catch(error=>error)
+                })
             }
-            cardBody.appendChild(btnDefault)
-           })
+        else{
+            list.textContent= "Tickets Sold Out"
+            btnBuy.textContent = "Tickets Sold Out"
+            btnBuy.addEventListener("click", ()=> alert("These tickets are sold out"))
+        }
+                cardBody.appendChild(btnDefault)
+        })
         .catch(error=>error)
-    }
+     }
 
     // Fetch data and put it on a list on the side nav
     function getMovieList(){
@@ -61,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     if (existingCard) {
                         movieDetails.removeChild(existingCard);//remove existing card before adding elements
                     }
+                    //create card to hold movies onclick
                         cardDiv = document.createElement("div")
                         cardDiv.className = "card-div"
                         cardDiv.innerHTML= `
@@ -71,33 +92,50 @@ document.addEventListener("DOMContentLoaded", function(){
                             <p class="card-text">${data.description}</p>
                             <p class="card-text">Runtime: ${data.runtime}</p>
                             <p class="card-text">Showtime: ${data.showtime}</p>
-                            <p class="card-text">Available Tickets: ${data.capacity - data.tickets_sold}</p>
+                            <p id = "ticketsAvailable" class="card-text">Available Tickets: ${data.capacity - data.tickets_sold}</p>
                         </div>
                         </div>
                         `
                         movieDetails.appendChild(cardDiv)
 
+                        //Create buying button and change to sold out if all tickets are not available
                         const btnBuy = document.createElement("button")
                         btnBuy.className= 'btn btn-primary'
                         let ticketAvailable = data.capacity - data.tickets_sold;
                         const cardBody= document.querySelector("#movieCard")
-                        if(ticketAvailable===0)
+                        if(ticketAvailable >0)
                         {
-                            btnBuy.textContent = "Sold Out"
-                        }else{
                             btnBuy.textContent = "Buy Ticket"
+                            btnBuy.addEventListener("click", ()=> {
+                                fetch (`http://localhost:3000/films/${data.id}`, {
+                                    method: 'PATCH',
+                                    headers:{
+                                        'Content-Type':'application/json'
+                                    },
+                                    body:JSON.stringify({tickets_sold: data.tickets_sold+1})
+                                })
+                                .then(res=> res.json())
+                                .then((updatedData) => {
+                                    // Update the displayed available tickets count
+                                    const ticketsAvailableElement = document.getElementById("ticketsAvailable");
+                                    ticketsAvailableElement.textContent = `Available Tickets: ${data.capacity - updatedData.tickets_sold}`;
+                                  })
+                                .catch(error=>error)
+                                })
                         }
-                        cardBody.appendChild(btnBuy)
-
-                    
-                    
+                        else{
+                            list.textContent= "Tickets Sold Out"
+                            btnBuy.textContent = "Tickets Sold Out"
+                            btnBuy.addEventListener("click", ()=> alert("These tickets are sold out"))
+                        }
+                        
+                        cardBody.appendChild(btnBuy)                   
                 })
                 listDiv.appendChild(list)
             });
         })
         .catch(error=>error)
     }
-
 
     getMovieList()
     getDefaultMovie()
