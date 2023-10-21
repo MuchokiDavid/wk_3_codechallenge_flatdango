@@ -1,2 +1,28 @@
 @import url("bootstrap.css");
 
+.container {
+    display: flex; /* Make the container a flex container */
+}
+.mDetails{
+    background-color: rgb(240, 240, 240);
+    width: 100%;
+}
+.head,.foot{
+    background-color: rgb(157, 157, 240);
+    color: #fff;
+    padding: 20px;
+}
+.listAtt{
+    list-style: none;
+}
+.listDiv{
+    height: 35px;
+    width: 250px;
+    border: 1px solid #747474;
+    background-color: rgb(190, 190, 190);
+    color: #333; /* Default link color */
+    text-decoration: none;
+}
+.listDiv:active {
+    color: #FF0000;
+}

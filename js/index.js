@@ -2,30 +2,50 @@ document.addEventListener("DOMContentLoaded", function(){
     //Initialize an empty array
     let films =[]
     // Fetch data and put it on a list on the side nav
-    function getData(){
+    function getMovieList(){
+        const ul= document.querySelector("#movieMenu")
         fetch("http://localhost:3000/films")
         .then(res=> res.json())
         .then(data => {
             data.forEach(data => {
-                const navDiv= document.querySelector("#rightMenu")
-                navDiv.innerHTML+= `
-                <div class="d-flex align-items-start">
-                <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">${data.title}</button>
-                </div>
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
-                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
-                </div>
-                </div>
-                `
-
+                const listDiv = document.createElement("div")
+                listDiv.className = "listDiv"
+                ul.appendChild(listDiv)
+                const list= document.createElement("li")
+                list.className = 'listAtt'
+                list.textContent = data.title
+                listDiv.appendChild(list)
             });
             
         })
         .catch(error=>error)
     }
-    getData()
+    function getDefaultMovie(){
+        const moiveDetails= document.querySelector("#movieDetails")
+        fetch("http://localhost:3000/films")
+        .then(res=> res.json())
+        .then(data => {
+            const card = document.createElement("div")
+            moiveDetails.appendChild(card)
+            card.innerHTML = `
+            <div class="card-group">
+            <div class="card">
+                <img class="card-img-top" src="${data[0].poster}" alt="Card image cap">
+                <div class="card-body">
+                <h4 class="card-title">Movie Title: ${data[0].title}</h4>
+                <p class="card-text">${data[0].description}</p>
+                <p class="card-text">Runtime: ${data[0].runtime}</p>
+                <p class="card-text">Showtime: ${data[0].showtime}</p>
+                <p class="card-text">Available Tickets: ${data[0].capacity - data[0].tickets_sold}</p>
+                <p class="card-text">Grab Your Ticket Now</p>
+                </div>
+            </div>
+            </div>
+            `
+            
+        })
+        .catch(error=>error)
+    }
+    getMovieList()
+    getDefaultMovie()
 })
