@@ -45,15 +45,15 @@ document.addEventListener("DOMContentLoaded", function(){
                 .then((updatedData) => {
                     // Update the displayed available tickets count
                     const ticketsAvailableElement = document.getElementById("ticketsAvailable");
-                    ticketsAvailableElement.textContent = `Available Tickets: ${data.capacity - updatedData.tickets_sold}`;
+                    ticketsAvailableElement.textContent = `Available Tickets: ${data[0].capacity - updatedData.tickets_sold}`;
                     })
                 .catch(error=>error)
                 })
             }
         else{
             list.textContent= "Tickets Sold Out"
-            btnBuy.textContent = "Tickets Sold Out"
-            btnBuy.addEventListener("click", ()=> alert("These tickets are sold out"))
+            btnDefault.textContent = "Tickets Sold Out"
+            btnDefault.addEventListener("click", ()=> alert("These tickets are sold out"))
         }
                 cardBody.appendChild(btnDefault)
         })
@@ -107,6 +107,28 @@ document.addEventListener("DOMContentLoaded", function(){
                         {
                             btnBuy.textContent = "Buy Ticket"
                             btnBuy.addEventListener("click", ()=> {
+                                /*
+                                    if (ticketAvailable > 0) {
+                                        // Update the local data
+                                        data.tickets_sold += 1;
+
+                                        // Send a PATCH request to update the server
+                                        fetch(`http://localhost:3000/films/${data.id}`, {
+                                        method: 'PATCH',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({ tickets_sold: data.tickets_sold })
+                                        })
+                                        .then((res) => res.json())
+                                        .then((updatedData) => {
+                                        // Update the displayed available tickets count
+                                        const ticketsAvailableElement = document.getElementById("ticketsAvailable");
+                                        ticketsAvailableElement.textContent = `Available Tickets: ${data.capacity - updatedData.tickets_sold}`;
+                                        })
+                                        .catch((error) => console.error(error));
+                                    }
+                                 */
                                 fetch (`http://localhost:3000/films/${data.id}`, {
                                     method: 'PATCH',
                                     headers:{
