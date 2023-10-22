@@ -45,19 +45,19 @@ document.addEventListener("DOMContentLoaded", function(){
                 })
                 .then(res=> res.json())
                 .then((updatedData) => {
-                    // Update the displayed available tickets count
-                    const ticketsAvailableElement = document.getElementById("ticketsAvailable");
-                    ticketsAvailableElement.textContent = `Available Tickets: ${data[0].capacity - updatedData.tickets_sold}`;
+                        // Update the displayed available tickets count
+                        const ticketsAvailableElement = document.getElementById("ticketsAvailable");
+                        ticketsAvailableElement.textContent = `Available Tickets: ${data[0].capacity - updatedData.tickets_sold}`;
+                        alert("Successifully bought ticket")
                     })
                 .catch(error=>error)
                 })
+                
             }
         else{
-            list.textContent= "Tickets Sold Out"
-            const btnDefault1= document.createElement("button")
-
-            btnDefault1.textContent = "Tickets Sold Out"
+            btnDefault.textContent = "Tickets Sold Out"
             btnDefault.addEventListener("click", ()=> alert("These tickets are sold out"))
+            btnDefault.removeEventListener("click", null);
         }
                 cardBody.appendChild(btnDefault)
         })
@@ -80,8 +80,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 const list= document.createElement("li")
                 list.className = 'listAtt'
                 list.textContent = data.title
-                list.addEventListener("click", (e)=>{
-                    e.preventDefault()
+                list.addEventListener("click", ()=>{
                     card.style.display = 'none'; 
                     const existingCard = movieDetails.querySelector(".card-div");
                     if (existingCard) {
@@ -92,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         cardDiv.className = "card-div"
                         cardDiv.innerHTML= `
                         <div id = "moviesCard" class="card" style="width: 30rem; padding-left: 20px; padding-top: 20px">
-                        <img class="card-img-top" style="width: 20rem; padding-left: 20px" src="${data.poster}" alt="Card image cap">
+                        <img class="card-img-top" style="width: 20rem; padding-left: 20px" src="${data.poster}" alt="${data.title}">
                         <div id = "movieCard" class="card-body">
                             <h4 class="card-title">Movie Title: ${data.title}</h4>
                             <p class="card-text">${data.description}</p>
@@ -131,9 +130,11 @@ document.addEventListener("DOMContentLoaded", function(){
                                 })
                         }
                         else{
+
                             list.textContent= "Tickets Sold Out"
                             btnBuy.textContent = "Tickets Sold Out"
                             btnBuy.addEventListener("click", ()=> alert("These tickets are sold out"))
+                            btnBuy.removeEventListener("click", null);
                         }
                         
                         cardBody.appendChild(btnBuy)                   

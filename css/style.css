@@ -19,7 +19,7 @@
     color: white;
 }
 #movieMenu{
-    padding-top: 5px;
+    padding-top: 0.5px;
 }
 .film_items{
     height: 35px;
@@ -28,7 +28,4 @@
     background-color: rgb(110, 110, 223);
     color: #333; /* Default link color */
     text-decoration: none;
-}
-.film_items:active {
-    color: #FF0000;
 }
