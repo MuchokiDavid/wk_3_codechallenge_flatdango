@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 btnDefault.textContent = "Buy Ticket"
                 btnDefault.addEventListener("click", (e)=> {
                     e.preventDefault()
-                fetch (`http://localhost:3000/films/${data[0].id}`, {
+                    fetch (`http://localhost:3000/films/${data[0].id}`, {
                     method: 'PATCH',
                     headers:{
                         'Content-Type':'application/json'
@@ -48,17 +48,16 @@ document.addEventListener("DOMContentLoaded", function(){
                         // Update the displayed available tickets count
                         const ticketsAvailableElement = document.getElementById("ticketsAvailable");
                         ticketsAvailableElement.textContent = `Available Tickets: ${data[0].capacity - updatedData.tickets_sold}`;
-                        alert("Successifully bought ticket")
                     })
                 .catch(error=>error)
                 })
                 
             }
-        else{
-            btnDefault.textContent = "Tickets Sold Out"
-            btnDefault.addEventListener("click", ()=> alert("These tickets are sold out"))
-            btnDefault.removeEventListener("click", null);
-        }
+            else{
+                btnDefault.textContent = "Tickets Sold Out"
+                btnDefault.addEventListener("click", ()=> alert("These tickets are sold out"))
+                btnDefault.removeEventListener("click", null);
+            }
                 cardBody.appendChild(btnDefault)
         })
         .catch(error=>error)
@@ -130,7 +129,6 @@ document.addEventListener("DOMContentLoaded", function(){
                                 })
                         }
                         else{
-
                             list.textContent= "Tickets Sold Out"
                             btnBuy.textContent = "Tickets Sold Out"
                             btnBuy.addEventListener("click", ()=> alert("These tickets are sold out"))
