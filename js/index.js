@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         {
                             btnBuy.addEventListener("click", (e)=> {
                                 e.preventDefault()
+                                // function to patchh tickets update
                                 fetch (`http://localhost:3000/films/${data.id}`, {
                                     method: 'PATCH',
                                     headers:{
@@ -128,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                 .catch(error=>error)
                                 })
                         }
-                        else{
+                        else{// button and list menu shows sold out if the tickets are sold out
                             list.textContent= "Tickets Sold Out"
                             btnBuy.textContent = "Tickets Sold Out"
                             btnBuy.addEventListener("click", ()=> alert("These tickets are sold out"))
